@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.vmngtm.mapper.TerminaMediaMapper">
+  <resultMap id="BaseResultMap" type="com.zero.vmngtm.model.TerminaMedia">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="tid" jdbcType="INTEGER" property="tid" />
+    <result column="mid" jdbcType="INTEGER" property="mid" />
+    <result column="play_time" jdbcType="TIMESTAMP" property="playTime" />
+    <result column="cid" jdbcType="INTEGER" property="cid" />
+  </resultMap>
+</mapper>

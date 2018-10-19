@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.vmngtm.mapper.MediaMapper">
+  <resultMap id="BaseResultMap" type="com.zero.vmngtm.model.Media">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sumplaycount" jdbcType="INTEGER" property="sumplaycount" />
+    <result column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="enable" jdbcType="SMALLINT" property="enable" />
+  </resultMap>
+  <select id="findMediaByName" resultType="com.zero.vmngtm.model.Media">
+    SELECT *
+    FROM media where name = #{name}
+  </select>
+  <insert id="insertMedia" keyProperty="id" parameterType="com.zero.vmngtm.model.Media" useGeneratedKeys="true">
+    insert into media(name,uid,createtime)
+    values(#{name},#{uid},#{createtime})
+  </insert>
+  <select id="totalMedia" parameterType="int" resultType="java.lang.Integer">
+    select count(m.id) from media m where
+    1=1
+    <if test="companyId!=null and companyId != '' and companyId != -1">
+      and m.id in (
+      SELECT um.mid from user_media um where um.uid in (SELECT id from user u where u.company_id=#{companyId}))
+    </if>
+
+  </select>
+  <select id="queryMediaByUid" parameterType="int" resultType="com.zero.vmngtm.model.Media">
+    SELECT t.id,t.name,t.createtime from media t where t.id in (SELECT t1.media_id from user_message t1 where t1.uid=#{uid})
+  </select>
+</mapper>
